@@ -1,0 +1,87 @@
+在使用matplotlib模块时画坐标图时，往往需要对坐标轴设置很多参数，这些参数包括横纵坐标轴范围、坐标轴刻度大小、坐标轴名称等 。
+1.axis设置坐标轴
+(1)语法:axis([xmin, xmax, ymin, ymax])
+(2)例子:
+import matplotlib.pyplot as plt
+plt.axis([xmin, xmax, ymin, ymax])
+plt.axis([-6,6,-10,10])   注：系统系统会自动调整y轴的区间，故跟设置的并不完全相同
+plt.axis()                      #returns the current axes limits [xmin, xmax, ymin, ymax]
+plt.axis('off')                #turns off the axis lines and labels
+plt.axis('equal')           #使用x轴与y轴具有相同长度
+axis('scaled')
+axis('tight')
+axis('image')                              
+axis('auto') 与 axis('normal')      #自动采用最合适的形式
+axis('square')                             #正方形
+2.设置坐标轴范围，名称，刻度
+(1)语法:
+plt.xlim、plt.ylim 设置横纵坐标轴范围 
+plt.xlabel、plt.ylabel 设置坐标轴名称 
+plt.xticks、plt.yticks设置坐标轴刻度
+另外也可以使用plt.axis([xmin, xmax, ymin, ymax])确定坐标值的范围
+# 设置刻度字体大小
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+# 设置坐标标签字体大小
+ax.set_xlabel(..., fontsize=20)
+ax.set_ylabel(..., fontsize=20)
+
+(2)例子:
+import matplotlib.pyplot as plt
+import numpy as np
+#创建数据
+x = np.linspace(-5, 5, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+#创建figure窗口
+plt.figure(num=3, figsize=(8, 5))
+#画曲线1
+plt.plot(x, y1)
+#画曲线2
+plt.plot(x, y2, color='blue', linewidth=5.0, linestyle='--')
+#设置坐标轴范围
+plt.xlim((-5, 5))     #也可写成plt.xlim(-5, 5) 
+plt.ylim((-2, 2))     #也可写成plt.ylim(-2, 2)
+#设置坐标轴名称
+ 
+plt.xlabel("Data sets",fontsize=13,fontweight='bold')
+plt.ylabel("Accuracy",fontsize=13,fontweight='bold')
+#设置坐标轴刻度
+my_x_ticks = np.arange(-5, 5, 0.5)
+my_y_ticks = np.arange(-2, 2, 0.3)
+plt.xticks(my_x_ticks)
+plt.yticks(my_y_ticks)
+#显示出所有设置
+plt.show()
+
+3.xticks()/yticks()设置坐标轴刻度
+#不显示坐标轴刻度
+plt.xticks([])
+plt.yticks([])
+ax.set_xticks([])  
+ax.set_yticks([]) 
+
+#设置坐标轴刻度
+my_x_ticks = np.arange(-5, 5, 0.5)      #显示范围为-5至5，每0.5显示一刻度
+my_y_ticks = np.arange(-2, 2, 0.2)      #显示范围为-2至2，每0.2显示一刻度
+plt.xticks(my_x_ticks)
+plt.yticks(my_y_ticks)
+
+#设置刻度标签字体属性
+plt.xticks(fontsize=16, color="red", rotation=45)
+# 显示x轴的刻标以及对应的标签
+xticks( arange(5), ('Tom', 'Dick', 'Harry', 'Sally', 'Sue') )
+4.xscale/yscale对数和其它非线性轴
+import numpy as np
+import matplotlib.pyplot as plt
+#生成一些区间 [0,1]内的数据
+y = np.random.normal(loc=0.5, scale=0.4, size=1000)
+y = y[(y > 0) & (y < 1)]
+y.sort()
+x = np.arange(len(y))
+#画图
+plt.yscale('linear')                               #线性
+plt.yscale('log')                                   #对数
+plt.yscale('symlog', linthreshy=0.05)  #对称的对数
+plt.yscale('logit')                                 #logit
+plt.show()
